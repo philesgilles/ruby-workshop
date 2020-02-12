@@ -3,12 +3,14 @@
 <% @articles.each do |article| %>
   <div class="card mb-3">
     <div class="card-body">
-      <h5 class="card-title"><%= article.title %><br>
-      </h5>
-      <p class="card-text"><%= article.body %></p>
+      <h3 class="card-title"><%= article.title %></h3>
+      <p><strong>from: </strong><%= "#{article.user.first_name} #{article.user.last_name}" %></p>
+      <p class="card-text"><%= truncate(article.body, length: 300) %></p>
       <%= link_to 'Show article', article_path(article), class:"card-link" %>
-      <%= link_to 'Edit', edit_article_path(article) %>
-      <%= link_to 'delete article', article_path(article), method: :delete %>
+      <% if current_user == article.user %>
+        <%= link_to 'Edit', edit_article_path(article) %>
+        <%= link_to 'delete article', article_path(article), method: :delete %>
+      <% end %>
     </div>
   </div>
 <% end %>

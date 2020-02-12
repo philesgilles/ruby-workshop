@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+
   def index
     @articles = Article.all
   end
@@ -10,7 +12,6 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.user = current_user
-    debugger
     if @article.save
       redirect_to article_path(@article)
     else
@@ -43,6 +44,14 @@ class ArticlesController < ApplicationController
   end
 
   private
+
+  def require_same_user
+    @article = Article.find(params[:id])
+    if current_user != @article.user
+      flash[:danger] = "You need the be the user of article to edit"
+      redirect_to root_path
+    end
+  end
 
   def article_params
     params.require(:article).permit(:title, :body)
