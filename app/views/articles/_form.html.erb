@@ -1,0 +1,18 @@
+<%= form_for @article do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, rows: 10, class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb|%>
+      <% cb.label(class: "checkbox-inline input_checkbox mr-4") {cb.check_box(class: "checkbox mr-1 mb-1") + cb.text } %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class:"btn btn-outline-indigo" %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<% obj.each do |article| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title"><%= article.title %></h3>
+      <p><strong>from: </strong><%= "#{article.user.first_name} #{article.user.last_name}" %></p>
+      <% article.categories.each do |category|%>
+        <span class="badge indigo"><%=category.name %></span>
+      <% end %>
+      <p class="card-text"><%= truncate(article.body, length: 300) %></p>
+      <%= link_to 'Show article', article_path(article), class:"card-link" %>
+      <% if current_user == article.user %>
+        <%= link_to 'Edit', edit_article_path(article) %>
+        <%= link_to 'delete article', article_path(article), method: :delete %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

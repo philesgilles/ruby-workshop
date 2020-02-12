@@ -1,0 +1,14 @@
+<h1>Categories</h1>
+<%= link_to 'New Category', new_category_path %>
+<ul class="list-group">
+  <% @categories.each do |category|%>
+    <%= link_to category_path(category) do %>
+      <li class="list-group-item list-group-item-action">
+        <div class="row d-flex justify-content-between">
+          <div><%= category.name %></div>
+          <div><span class="badge indigo"><%= pluralize(category.articles.count, "article") %></span></div>
+        </div>
+      </li>
+    <% end  %>
+  <% end %>
+</ul>
