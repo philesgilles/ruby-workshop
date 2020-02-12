@@ -1,0 +1,6 @@
+<h1>All articles</h1>
+<%= link_to 'Create article', new_article_path, class:"btn btn-outline-indigo" %>
+<% @articles.each do |article| %>
+  <%= article.title %><br>
+  <%= article.body %><br>
+<% end %>
